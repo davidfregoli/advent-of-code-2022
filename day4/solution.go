@@ -27,11 +27,11 @@ func partOne(pairs [][][]int) string {
 		var bContainsA bool = fromA >= fromB && toA <= toB
 		if aContainsB || bContainsA {
 			count = count + 1
-
 		}
 	}
 	return strconv.Itoa(count)
 }
+
 func partTwo(pairs [][][]int) string {
 	var count int
 	for _, pair := range pairs {
