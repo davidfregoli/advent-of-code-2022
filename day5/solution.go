@@ -1,7 +1,6 @@
 package day5
 
 import (
-	"fmt"
 	"regexp"
 	"strconv"
 
@@ -13,28 +12,41 @@ var Problem DayProblem = DayProblem{
 	Solve: func() (*Solution, *Solution) {
 		var lines []string = reader.ReadLines("day5/input.txt")
 		stacks, commands := parseLines(lines)
-		fmt.Printf("%c", stacks)
-		for _, cmd := range commands {
-			qty, from, to := cmd[0], cmd[1], cmd[2]
-			for i := 1; i <= qty; i++ {
-				last := len(stacks[from]) - 1
-				crate := stacks[from][last]
-				stacks[from] = stacks[from][0:last]
-				stacks[to] = append(stacks[to], crate)
-			}
-		}
-		fmt.Printf("%c", stacks)
-		var p1 string = partOne(stacks)
-		var p2 string = ""
-		return NewSolution(5, 1, p1), NewSolution(5, 1, p2)
+		var p1 string = partOne(stacks, commands)
+		stacks, commands = parseLines(lines)
+		var p2 string = partTwo(stacks, commands)
+		return NewSolution(5, 1, p1), NewSolution(5, 2, p2)
 	},
 }
 
-func partOne(stacks map[int][]byte) string {
+func partOne(stacks map[int][]byte, commands [][]int) string {
+	for _, cmd := range commands {
+		qty, from, to := cmd[0], cmd[1], cmd[2]
+		for i := 1; i <= qty; i++ {
+			last := len(stacks[from]) - 1
+			crate := stacks[from][last]
+			stacks[from] = stacks[from][0:last]
+			stacks[to] = append(stacks[to], crate)
+		}
+	}
+	return getMessage(stacks)
+}
+
+func partTwo(stacks map[int][]byte, commands [][]int) string {
+	for _, cmd := range commands {
+		qty, from, to := cmd[0], cmd[1], cmd[2]
+		last := len(stacks[from]) - qty
+    crates := stacks[from][last:]
+		stacks[from] = stacks[from][0:last]
+		stacks[to] = append(stacks[to], crates...)
+	}
+	return getMessage(stacks)
+}
+
+func getMessage(stacks map[int][]byte) string {
 	var length int = len(stacks)
 	msg := make([]byte, length)
 	for k, stack := range stacks {
-		fmt.Println(k, stack)
 		last := len(stack) - 1
 		msg[k-1] = stack[last]
 	}

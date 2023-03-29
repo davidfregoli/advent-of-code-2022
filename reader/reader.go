@@ -24,3 +24,11 @@ func ReadLines(path string) []string {
 	readFile.Close()
 	return lines
 }
+
+func ReadLine(path string) string {
+  lines := ReadLines(path)
+  if len(lines) != 1 {
+    panic("not a single line file")
+  }
+  return lines[0]
+}
