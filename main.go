@@ -9,6 +9,7 @@ import (
 	"github.com/davidfregoli/advent-of-code-2022/day6"
 	"github.com/davidfregoli/advent-of-code-2022/day7"
 	"github.com/davidfregoli/advent-of-code-2022/day8"
+	"github.com/davidfregoli/advent-of-code-2022/day9"
 	. "github.com/davidfregoli/advent-of-code-2022/setup"
 )
 
@@ -22,6 +23,7 @@ func main() {
 	aoc.Solve(day6.Problem)
 	aoc.Solve(day7.Problem)
 	aoc.Solve(day8.Problem)
+	aoc.Solve(day9.Problem)
 	aoc.Run()
 	aoc.Print()
 }
