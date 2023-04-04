@@ -35,7 +35,7 @@ func (aoc *AOC) Only(p DayProblem) {
 
 func (aoc *AOC) Print() {
 	data, _ := json.MarshalIndent(aoc.Solutions, "", "  ")
-	fmt.Printf("%s", string(data))
+	fmt.Printf("%v", string(data))
 }
 
 type DayProblem struct {
@@ -45,10 +45,10 @@ type DayProblem struct {
 type Solution struct {
 	Day   int
 	Part  int
-	Value string
+	Value any
 }
 
-func NewSolution(day int, part int, value string) *Solution {
+func NewSolution(day int, part int, value any) *Solution {
 	return &Solution{
 		Day:   day,
 		Part:  part,
