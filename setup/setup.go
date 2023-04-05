@@ -55,3 +55,8 @@ func NewSolution(day int, part int, value any) *Solution {
 		Value: value,
 	}
 }
+
+func Debug(d any) {
+	data, _ := json.MarshalIndent(d, "", "  ")
+	fmt.Printf("%v", string(data))
+}
