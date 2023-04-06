@@ -7,7 +7,6 @@ import (
 	"github.com/davidfregoli/advent-of-code-2022/day12"
 	"github.com/davidfregoli/advent-of-code-2022/day13"
 	"github.com/davidfregoli/advent-of-code-2022/day14"
-	"github.com/davidfregoli/advent-of-code-2022/day15"
 	"github.com/davidfregoli/advent-of-code-2022/day2"
 	"github.com/davidfregoli/advent-of-code-2022/day3"
 	"github.com/davidfregoli/advent-of-code-2022/day4"
@@ -35,7 +34,6 @@ func main() {
 	aoc.Solve(day12.Problem)
 	aoc.Solve(day13.Problem)
 	aoc.Solve(day14.Problem)
-	aoc.Solve(day15.Problem)
 	aoc.Run()
 	aoc.Print()
 }
