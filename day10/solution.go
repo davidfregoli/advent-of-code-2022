@@ -14,7 +14,7 @@ var reNoop = regexp.MustCompile(`^noop$`)
 var reInstruction = regexp.MustCompile(`^addx (-?\d+)$`)
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines = reader.ReadLines("day10/input.txt")
 		var register int = 1
 		var history = []int{0}
@@ -37,7 +37,8 @@ var Problem DayProblem = DayProblem{
 		var p1 string = partOne(history)
 		var p2 = partTwo(history)
 
-		return NewSolution(10, 1, p1), NewSolution(10, 2, p2)
+		c <- NewSolution(10, 1, p1)
+		c <- NewSolution(10, 2, p2)
 	},
 }
 

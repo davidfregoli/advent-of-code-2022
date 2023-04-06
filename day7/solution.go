@@ -14,7 +14,7 @@ var patternFolder = regexp.MustCompile(`^dir (.+)`)
 var patternFile = regexp.MustCompile(`^([0-9]+) ([a-zA-Z.]+)`)
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var cwd *file
 		var root *file = newFolder("/")
 		var lines []string = reader.ReadLines("day7/input.txt")
@@ -48,7 +48,8 @@ var Problem DayProblem = DayProblem{
 		var p1 string = partOne(folderTable)
 		var p2 string = partTwo(folderTable)
 
-		return NewSolution(7, 1, p1), NewSolution(7, 2, p2)
+		c <- NewSolution(7, 1, p1)
+		c <- NewSolution(7, 2, p2)
 	},
 }
 

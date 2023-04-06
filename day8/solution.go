@@ -9,7 +9,7 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines = reader.ReadLines("day8/input.txt")
 		var forest [][]int = [][]int{}
 
@@ -25,7 +25,8 @@ var Problem DayProblem = DayProblem{
 		var p1 = partOne(forest)
 		var p2 = partTwo(forest)
 
-		return NewSolution(8, 1, p1), NewSolution(8, 2, p2)
+		c <- NewSolution(8, 1, p1)
+		c <- NewSolution(8, 2, p2)
 	},
 }
 

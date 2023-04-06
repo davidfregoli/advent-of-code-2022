@@ -9,13 +9,14 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines []string = reader.ReadLines("day5/input.txt")
 		stacks, commands := parseLines(lines)
 		var p1 string = partOne(stacks, commands)
 		stacks, commands = parseLines(lines)
 		var p2 string = partTwo(stacks, commands)
-		return NewSolution(5, 1, p1), NewSolution(5, 2, p2)
+		c <- NewSolution(5, 1, p1)
+		c <- NewSolution(5, 2, p2)
 	},
 }
 
@@ -36,7 +37,7 @@ func partTwo(stacks map[int][]byte, commands [][]int) string {
 	for _, cmd := range commands {
 		qty, from, to := cmd[0], cmd[1], cmd[2]
 		last := len(stacks[from]) - qty
-    crates := stacks[from][last:]
+		crates := stacks[from][last:]
 		stacks[from] = stacks[from][0:last]
 		stacks[to] = append(stacks[to], crates...)
 	}

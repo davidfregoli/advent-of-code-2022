@@ -9,13 +9,14 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines []string = reader.ReadLines("day1/input.txt")
 
 		var elfs [][]int = groupByElf(lines)
 		var sums []int = sumByElf(elfs)
 		var p1, p2 string = partOne(sums), partTwo(sums)
-		return NewSolution(1, 1, p1), NewSolution(1, 2, p2)
+		c <- NewSolution(1, 1, p1)
+		c <- NewSolution(1, 2, p2)
 	},
 }
 

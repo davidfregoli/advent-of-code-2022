@@ -12,7 +12,7 @@ import (
 var rePoints = regexp.MustCompile(`(\d+),(\d+)`)
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var xMax = 0
 		var yMax = 0
 
@@ -39,7 +39,8 @@ var Problem DayProblem = DayProblem{
 		var p1 = partOne(segments, xMax, yMax)
 		var p2 = partTwo(segments, xMax, yMax)
 
-		return NewSolution(14, 1, p1), NewSolution(14, 2, p2)
+		c <- NewSolution(14, 1, p1)
+		c <- NewSolution(14, 2, p2)
 	},
 }
 

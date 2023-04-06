@@ -14,11 +14,12 @@ var reNumber = regexp.MustCompile(`\d+`)
 var reOperation = regexp.MustCompile(`Operation: new = old ([+*]) (\d+|old)`)
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines = reader.ReadLines("day11/input.txt")
 		var p1 string = partOne(parseLines(lines))
 		var p2 string = partTwo(parseLines(lines))
-		return NewSolution(11, 1, p1), NewSolution(11, 2, p2)
+		c <- NewSolution(11, 1, p1)
+		c <- NewSolution(11, 2, p2)
 	},
 }
 

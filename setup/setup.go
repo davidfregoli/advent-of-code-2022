@@ -3,6 +3,7 @@ package setup
 import (
 	"encoding/json"
 	"fmt"
+	"sort"
 )
 
 type AOC struct {
@@ -13,10 +14,17 @@ type AOC struct {
 }
 
 func (aoc *AOC) Run() {
+	c := make(chan *Solution)
 	for _, problem := range aoc.Problems {
-		solution1, solution2 := problem.Solve()
-		aoc.Solutions = append(aoc.Solutions, solution1, solution2)
+		go problem.Solve(c)
 	}
+	for range aoc.Problems {
+		aoc.Solutions = append(aoc.Solutions, <-c, <-c)
+	}
+	sort.Slice(aoc.Solutions, func(i, j int) bool {
+		return aoc.Solutions[i].Day < aoc.Solutions[j].Day ||
+			(aoc.Solutions[i].Day == aoc.Solutions[j].Day && aoc.Solutions[i].Part < aoc.Solutions[j].Part)
+	})
 }
 
 func (aoc *AOC) Solve(p DayProblem) {
@@ -39,7 +47,7 @@ func (aoc *AOC) Print() {
 }
 
 type DayProblem struct {
-	Solve func() (*Solution, *Solution)
+	Solve func(chan *Solution)
 }
 
 type Solution struct {

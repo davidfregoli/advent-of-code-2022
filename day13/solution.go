@@ -14,7 +14,7 @@ import (
 var reTokens = regexp.MustCompile(`(\d+|[\[\],])`)
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var pairs = []pair{}
 		var list = []any{}
 		var lines = reader.ReadLines("day13/input.txt")
@@ -32,7 +32,8 @@ var Problem DayProblem = DayProblem{
 
 		var p1 = partOne(pairs)
 		var p2 = partTwo(list)
-		return NewSolution(13, 1, p1), NewSolution(13, 2, p2)
+		c <- NewSolution(13, 1, p1)
+		c <- NewSolution(13, 2, p2)
 	},
 }
 

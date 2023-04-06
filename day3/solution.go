@@ -10,10 +10,11 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines []string = reader.ReadLines("day3/input.txt")
 		var p1, p2 string = partOne(lines), partTwo(lines)
-		return NewSolution(3, 1, p1), NewSolution(3, 2, p2)
+		c <- NewSolution(3, 1, p1)
+		c <- NewSolution(3, 2, p2)
 	},
 }
 

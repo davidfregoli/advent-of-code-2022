@@ -9,12 +9,13 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var lines []string = reader.ReadLines("day4/input.txt")
 		var pairs [][][]int = parseLines(lines)
 		var p1 string = partOne(pairs)
 		var p2 string = partTwo(pairs)
-		return NewSolution(4, 1, p1), NewSolution(4, 2, p2)
+		c <- NewSolution(4, 1, p1)
+		c <- NewSolution(4, 2, p2)
 	},
 }
 

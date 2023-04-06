@@ -19,7 +19,7 @@ var dirMap = map[string][]int{
 }
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var motions = []motion{}
 		var lines []string = reader.ReadLines("day9/input.txt")
 		for _, line := range lines {
@@ -32,7 +32,8 @@ var Problem DayProblem = DayProblem{
 		var p1 string = partOne(motions)
 		var p2 string = partTwo(motions)
 
-		return NewSolution(9, 1, p1), NewSolution(9, 2, p2)
+		c <- NewSolution(9, 1, p1)
+		c <- NewSolution(9, 2, p2)
 	},
 }
 

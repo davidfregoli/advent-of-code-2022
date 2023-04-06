@@ -9,7 +9,7 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var (
 			start []int
 			end   []int
@@ -53,7 +53,8 @@ var Problem DayProblem = DayProblem{
 		}
 		var p2 = fmt.Sprint(exploreDown(end[0], end[1], cells, 0, history))
 
-		return NewSolution(12, 1, p1), NewSolution(12, 2, p2)
+		c <- NewSolution(12, 1, p1)
+		c <- NewSolution(12, 2, p2)
 	},
 }
 

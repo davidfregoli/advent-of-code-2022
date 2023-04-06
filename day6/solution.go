@@ -8,13 +8,14 @@ import (
 )
 
 var Problem DayProblem = DayProblem{
-	Solve: func() (*Solution, *Solution) {
+	Solve: func(c chan *Solution) {
 		var input = reader.ReadLine("day6/input.txt")
 		var b1 buffer = buffer{size: 4}
 		var b2 buffer = buffer{size: 14}
 		var p1 string = findIndex(input, b1)
 		var p2 string = findIndex(input, b2)
-		return NewSolution(6, 1, p1), NewSolution(6, 2, p2)
+		c <- NewSolution(6, 1, p1)
+		c <- NewSolution(6, 2, p2)
 	},
 }
 
